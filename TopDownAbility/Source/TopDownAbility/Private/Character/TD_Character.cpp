@@ -50,7 +50,7 @@ void ATD_Character::AquireAbility(TSubclassOf<UGameplayAbility> AbilityToAquire)
 
 			FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(SpecsDef,1);
 
-			AbilityComponent->GiveAbility(FGameplayAbilitySpec(AbilitySpec));
+			AbilityComponent->GiveAbility(AbilitySpec);
 		}
 	}
 }
