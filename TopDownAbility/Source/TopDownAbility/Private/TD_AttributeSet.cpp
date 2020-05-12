@@ -6,9 +6,9 @@
 #include "GameplayEffectExtension.h"
 #include <UObject/ObjectMacros.h>
 
-
+//------------------------------------------------------------------------------------------
 UTD_AttributeSet::UTD_AttributeSet()
-	: Health(200.0f) , Mana(100.0f)
+	: Health(200.0f), MaxHealth(200.0f), Mana(100.0f), MaxMana(100.0f)
 {
 }
 
@@ -18,5 +18,7 @@ void UTD_AttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectMod
 	if (Data.EvaluatedData.Attribute.GetUProperty() == FindFieldChecked<UProperty>(UTD_AttributeSet::StaticClass(), GET_MEMBER_NAME_CHECKED(UTD_AttributeSet, Health)))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Health modified by a gameplay effect: %f"), Health.GetCurrentValue());
+
+		OnHealthChangedDelegate.Broadcast(Health.GetCurrentValue(), MaxHealth.GetBaseValue());
 	}
 }

@@ -14,6 +14,8 @@ ATD_Character::ATD_Character()
 	AbilityComponent = CreateDefaultSubobject<UAbilitySystemComponent>("AbilityComponent");
 
 	AttributeSet = CreateDefaultSubobject<UTD_AttributeSet>("UTD_AttributeSet");
+
+	AttributeSet->OnHealthChangedDelegate.AddDynamic(this, &ATD_Character::OnHealthChanged);
 }
 
 //------------------------------------------------------------------------------------------
@@ -21,6 +23,13 @@ void ATD_Character::BeginPlay()
 {
 	Super::BeginPlay();
 	
+}
+
+//------------------------------------------------------------------------------------------
+void ATD_Character::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	Super::EndPlay(EndPlayReason);
+	AttributeSet->OnHealthChangedDelegate.RemoveAll(this);
 }
 
 //------------------------------------------------------------------------------------------
@@ -60,5 +69,11 @@ void ATD_Character::AquireAbility(TSubclassOf<UGameplayAbility> AbilityToAquire)
 			AbilityComponent->InitAbilityActorInfo(this, this);
 		}
 	}
+}
+
+//------------------------------------------------------------------------------------------
+void ATD_Character::OnHealthChanged(float Health, float MaxHealth)
+{
+	BP_OnHealthChanged(Health, MaxHealth);
 }
 

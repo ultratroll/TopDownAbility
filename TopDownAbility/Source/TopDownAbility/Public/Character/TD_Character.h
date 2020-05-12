@@ -24,6 +24,9 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	// Called when the game starts or when spawned
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -41,5 +44,11 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Abilities")
 	void AquireAbility(TSubclassOf<UGameplayAbility> AbilityToAquire);
+
+	UFUNCTION()
+	void OnHealthChanged(float Health, float MaxHealth);
+
+	UFUNCTION(BlueprintImplementableEvent, Category= "CharacterBase", meta= (DisplayName= "On Health Changed"))
+	void BP_OnHealthChanged(float Health, float MaxHealth);
 
 };
