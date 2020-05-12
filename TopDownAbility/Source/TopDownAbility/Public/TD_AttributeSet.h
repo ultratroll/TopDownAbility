@@ -23,4 +23,7 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Base")
 	FGameplayAttributeData Mana;
+
+	/** Called after gameplay effect is applied. */
+	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData &Data);
 };
