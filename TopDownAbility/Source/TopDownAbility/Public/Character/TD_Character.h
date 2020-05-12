@@ -9,6 +9,7 @@
 
 class UAbilitySystemComponent;
 class UGameplayAbility;
+class UTD_AttributeSet;
 
 UCLASS()
 class TOPDOWNABILITY_API ATD_Character : public ACharacter, public IAbilitySystemInterface
@@ -34,6 +35,9 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, Category = "Abilities")
 	UAbilitySystemComponent* AbilityComponent;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Abilities")
+	UTD_AttributeSet* AttributeSet;
 
 	UFUNCTION(BlueprintCallable, Category = "Abilities")
 	void AquireAbility(TSubclassOf<UGameplayAbility> AbilityToAquire);

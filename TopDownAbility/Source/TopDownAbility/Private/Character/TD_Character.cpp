@@ -3,6 +3,7 @@
 #include "Character/TD_Character.h"
 #include "../Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/AbilitySystemComponent.h"
 #include "../Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/Abilities/GameplayAbility.h"
+#include "TD_AttributeSet.h"
 
 //------------------------------------------------------------------------------------------
 ATD_Character::ATD_Character()
@@ -11,6 +12,8 @@ ATD_Character::ATD_Character()
 	PrimaryActorTick.bCanEverTick = true;
 
 	AbilityComponent = CreateDefaultSubobject<UAbilitySystemComponent>("AbilityComponent");
+
+	AttributeSet = CreateDefaultSubobject<UTD_AttributeSet>("UTD_AttributeSet");
 }
 
 //------------------------------------------------------------------------------------------
