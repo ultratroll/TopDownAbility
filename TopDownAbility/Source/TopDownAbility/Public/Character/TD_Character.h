@@ -21,6 +21,10 @@ public:
 	ATD_Character();
 
 protected:
+
+	UPROPERTY()
+	bool bIsDead;
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -50,5 +54,8 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent, Category= "CharacterBase", meta= (DisplayName= "On Health Changed"))
 	void BP_OnHealthChanged(float Health, float MaxHealth);
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "CharacterBase", meta = (DisplayName = "On Health Changed"))
+	void BP_OnDeath();
 
 };

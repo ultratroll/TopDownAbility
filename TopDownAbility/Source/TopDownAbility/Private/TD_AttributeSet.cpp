@@ -17,6 +17,9 @@ void UTD_AttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectMod
 {
 	if (Data.EvaluatedData.Attribute.GetUProperty() == FindFieldChecked<UProperty>(UTD_AttributeSet::StaticClass(), GET_MEMBER_NAME_CHECKED(UTD_AttributeSet, Health)))
 	{
+		// Clamp health value
+		Health.SetCurrentValue(FMath::Clamp(Health.GetCurrentValue(), .0f, MaxHealth.GetBaseValue()));
+
 		UE_LOG(LogTemp, Warning, TEXT("Health modified by a gameplay effect: %f"), Health.GetCurrentValue());
 
 		OnHealthChangedDelegate.Broadcast(Health.GetCurrentValue(), MaxHealth.GetBaseValue());

@@ -74,6 +74,12 @@ void ATD_Character::AquireAbility(TSubclassOf<UGameplayAbility> AbilityToAquire)
 //------------------------------------------------------------------------------------------
 void ATD_Character::OnHealthChanged(float Health, float MaxHealth)
 {
+	if (Health <= 0 && !bIsDead)
+	{
+		bIsDead = true;
+		BP_OnDeath();
+	}
+
 	BP_OnHealthChanged(Health, MaxHealth);
 }
 
