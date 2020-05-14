@@ -4,6 +4,8 @@
 #include "../Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/AbilitySystemComponent.h"
 #include "../Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/Abilities/GameplayAbility.h"
 #include "TD_AttributeSet.h"
+#include <AIController.h>
+#include "BrainComponent.h"
 
 //------------------------------------------------------------------------------------------
 ATD_Character::ATD_Character()
@@ -16,6 +18,8 @@ ATD_Character::ATD_Character()
 	AttributeSet = CreateDefaultSubobject<UTD_AttributeSet>("UTD_AttributeSet");
 
 	AttributeSet->OnHealthChangedDelegate.AddDynamic(this, &ATD_Character::OnHealthChanged);
+
+	Team = 255;
 }
 
 //------------------------------------------------------------------------------------------
@@ -23,6 +27,8 @@ void ATD_Character::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	if (GetController() && GetController()->IsPlayerController())
+		Team = 0;
 }
 
 //------------------------------------------------------------------------------------------
@@ -77,9 +83,40 @@ void ATD_Character::OnHealthChanged(float Health, float MaxHealth)
 	if (Health <= 0 && !bIsDead)
 	{
 		bIsDead = true;
+		DisableController();
 		BP_OnDeath();
 	}
 
 	BP_OnHealthChanged(Health, MaxHealth);
 }
+
+//------------------------------------------------------------------------------------------
+uint8 ATD_Character::GetTeam()
+{
+	return Team;
+}
+
+//------------------------------------------------------------------------------------------
+bool ATD_Character::IsHostile(ATD_Character* OtherCharacter)
+{
+	return OtherCharacter->GetTeam() != Team;
+}
+
+//------------------------------------------------------------------------------------------
+void ATD_Character::DisableController()
+{
+	APlayerController* MyPC = Cast<APlayerController>(GetController());
+	if (MyPC)
+	{
+		MyPC->DisableInput(MyPC);
+	}
+
+	AAIController* AIC = Cast<AAIController>(GetController());
+	if (AIC)
+	{
+		AIC->GetBrainComponent()->StopLogic("Dead");
+	}
+
+}
+
 

@@ -58,4 +58,17 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category = "CharacterBase", meta = (DisplayName = "On Health Changed"))
 	void BP_OnDeath();
 
+	UFUNCTION(BlueprintCallable, Category = "CharacterBase")
+	uint8 GetTeam();
+
+	UFUNCTION(BlueprintCallable, Category = "CharacterBase")
+	bool IsHostile(ATD_Character* OtherCharacter);
+
+private:
+
+	uint8 Team;
+
+	// To be used upon death
+	void DisableController();
+
 };
