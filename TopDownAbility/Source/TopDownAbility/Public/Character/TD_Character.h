@@ -52,10 +52,22 @@ public:
 	UFUNCTION()
 	void OnHealthChanged(float Health, float MaxHealth);
 
+	UFUNCTION()
+	void OnManaChanged(float Mana, float MaxMana);
+
+	UFUNCTION()
+	void OnStrenghtChanged(float Strenght, float MaxStrenght);
+
 	UFUNCTION(BlueprintImplementableEvent, Category= "CharacterBase", meta= (DisplayName= "On Health Changed"))
 	void BP_OnHealthChanged(float Health, float MaxHealth);
 
-	UFUNCTION(BlueprintImplementableEvent, Category = "CharacterBase", meta = (DisplayName = "On Health Changed"))
+	UFUNCTION(BlueprintImplementableEvent, Category = "CharacterBase", meta = (DisplayName = "On Mana Changed"))
+	void BP_OnManaChanged(float Mana, float MaxMana);
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "CharacterBase", meta = (DisplayName = "On Strenght Changed"))
+	void BP_OnStrenghtChanged(float Strenght, float MaxStrenght);
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "CharacterBase", meta = (DisplayName = "On Death"))
 	void BP_OnDeath();
 
 	UFUNCTION(BlueprintCallable, Category = "CharacterBase")

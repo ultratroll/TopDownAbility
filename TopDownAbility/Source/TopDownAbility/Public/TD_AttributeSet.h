@@ -7,7 +7,7 @@
 #include "TD_AttributeSet.generated.h"
 
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FTD_OnHealthChanged, float, Health, float, MaxHealth);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FTD_OnAttributeChanged, float, Value, float, MaxValue);
 
 /**
  * 
@@ -22,7 +22,13 @@ public:
 	UTD_AttributeSet();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Delegate")
-	FTD_OnHealthChanged OnHealthChangedDelegate;
+	FTD_OnAttributeChanged OnHealthChangedDelegate;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Delegate")
+	FTD_OnAttributeChanged OnManaChangedDelegate;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Delegate")
+	FTD_OnAttributeChanged OnStrenghtChangedDelegate;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category= "Base")
 	FGameplayAttributeData Health;
@@ -35,6 +41,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Base")
 	FGameplayAttributeData MaxMana;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Base")
+	FGameplayAttributeData Strenght;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Base")
+	FGameplayAttributeData MaxStrenght;
 
 	/** Called after gameplay effect is applied. */
 	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData &Data);

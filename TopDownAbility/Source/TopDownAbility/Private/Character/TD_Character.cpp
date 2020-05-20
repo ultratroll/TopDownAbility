@@ -18,6 +18,8 @@ ATD_Character::ATD_Character()
 	AttributeSet = CreateDefaultSubobject<UTD_AttributeSet>("UTD_AttributeSet");
 
 	AttributeSet->OnHealthChangedDelegate.AddDynamic(this, &ATD_Character::OnHealthChanged);
+	AttributeSet->OnManaChangedDelegate.AddDynamic(this, &ATD_Character::OnManaChanged);
+	AttributeSet->OnStrenghtChangedDelegate.AddDynamic(this, &ATD_Character::OnStrenghtChanged);
 
 	Team = 255;
 }
@@ -29,6 +31,13 @@ void ATD_Character::BeginPlay()
 	
 	if (GetController() && GetController()->IsPlayerController())
 		Team = 0;
+
+	/*
+	APlayerController* MyPC = Cast<APlayerController>(GetController());
+	if (MyPC)
+	{
+		MyPC->EnableInput(MyPC);
+	}*/
 }
 
 //------------------------------------------------------------------------------------------
@@ -36,6 +45,8 @@ void ATD_Character::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	Super::EndPlay(EndPlayReason);
 	AttributeSet->OnHealthChangedDelegate.RemoveAll(this);
+	AttributeSet->OnManaChangedDelegate.RemoveAll(this);
+	AttributeSet->OnStrenghtChangedDelegate.RemoveAll(this);
 }
 
 //------------------------------------------------------------------------------------------
@@ -88,6 +99,18 @@ void ATD_Character::OnHealthChanged(float Health, float MaxHealth)
 	}
 
 	BP_OnHealthChanged(Health, MaxHealth);
+}
+
+//------------------------------------------------------------------------------------------
+void ATD_Character::OnManaChanged(float Mana, float MaxMana)
+{
+	BP_OnManaChanged(Mana, MaxMana);
+}
+
+//------------------------------------------------------------------------------------------
+void ATD_Character::OnStrenghtChanged(float Strenght, float MaxStrenght)
+{
+	BP_OnStrenghtChanged(Strenght, MaxStrenght);
 }
 
 //------------------------------------------------------------------------------------------
