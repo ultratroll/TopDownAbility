@@ -25,19 +25,23 @@ ATD_Character::ATD_Character()
 }
 
 //------------------------------------------------------------------------------------------
+void ATD_Character::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+	APlayerController* MyPC = Cast<APlayerController>(NewController);
+	if (MyPC)
+	{
+		MyPC->EnableInput(MyPC);
+	}
+}
+
+//------------------------------------------------------------------------------------------
 void ATD_Character::BeginPlay()
 {
 	Super::BeginPlay();
 	
 	if (GetController() && GetController()->IsPlayerController())
 		Team = 0;
-
-	/*
-	APlayerController* MyPC = Cast<APlayerController>(GetController());
-	if (MyPC)
-	{
-		MyPC->EnableInput(MyPC);
-	}*/
 }
 
 //------------------------------------------------------------------------------------------

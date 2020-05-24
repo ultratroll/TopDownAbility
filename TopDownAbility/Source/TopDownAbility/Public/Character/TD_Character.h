@@ -20,6 +20,8 @@ public:
 	// Sets default values for this character's properties
 	ATD_Character();
 
+	virtual void PossessedBy(AController* NewController) override;
+
 protected:
 
 	UPROPERTY()
@@ -31,7 +33,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
