@@ -32,6 +32,7 @@ void ATD_Character::PossessedBy(AController* NewController)
 	if (MyPC)
 	{
 		MyPC->EnableInput(MyPC);
+		Team = 0;
 	}
 }
 
@@ -40,8 +41,8 @@ void ATD_Character::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	if (GetController() && GetController()->IsPlayerController())
-		Team = 0;
+	//if (GetController() && GetController()->IsPlayerController())
+	//	Team = 0;
 }
 
 //------------------------------------------------------------------------------------------
